@@ -30,11 +30,11 @@ struct ContentView: View {
         Restaurant(name: "Donostia", type: "Spanish", phone: "722-232323", image: "donostia", priceLevel: 1),
         Restaurant(name: "Royal Oak", type: "British", phone: "343-988834", image: "royaloak", priceLevel: 2, isFavorite: true),
         Restaurant(name: "CASK Pub and Kitchen", type: "Thai", phone: "432-344050", image: "caskpubkitchen", priceLevel: 1)
-        ]
+    ]
     
-
+    
     @State private var selectedRestaurant: Restaurant?
-    
+    @State private var showSettings = false
     var body: some View {
         NavigationView {
             List {
@@ -61,7 +61,7 @@ struct ContentView: View {
                                     Image(systemName: "trash")
                                 }
                             }
-                                             
+                            
                             Button(action: {
                                 // mark the selected restaurant as favorite
                                 self.setFavorite(item: restaurant)
@@ -81,8 +81,20 @@ struct ContentView: View {
                     self.restaurants.remove(atOffsets: indexSet)
                 }
             }
-            
             .navigationBarTitle("Restaurant")
+            .navigationBarItems(trailing:
+                                    Button(action: {
+                                        self.showSettings = true
+                                    }, label: {
+                                        
+                                        Image(systemName: "gear")
+                                            .font(.title)
+                                            .foregroundColor(.black)
+                                    })
+            )
+            .sheet(isPresented: $showSettings){
+                SettingView()
+            }
         }
     }
     
@@ -126,51 +138,50 @@ struct BasicImageRow: View {
     var restaurant: Restaurant
     
     var body: some View {
-      
-            HStack {
-                Image(restaurant.image)
-                    .resizable()
-                    .frame(width: 60, height: 60)
-                    .clipShape(Circle())
-                    .padding(.trailing, 10)
-                
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(restaurant.name)
-                            .font(.system(.body, design: .rounded))
-                            .bold()
-                        
-                        Text(String(repeating: "$", count: restaurant.priceLevel))
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-
-                    }
-                    
-                    Text(restaurant.type)
-                        .font(.system(.subheadline, design: .rounded))
+        
+        HStack {
+            Image(restaurant.image)
+                .resizable()
+                .frame(width: 60, height: 60)
+                .clipShape(Circle())
+                .padding(.trailing, 10)
+            
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(restaurant.name)
+                        .font(.system(.body, design: .rounded))
                         .bold()
-                        .foregroundColor(.secondary)
-                        .lineLimit(3)
                     
-                    Text(restaurant.phone)
-                        .font(.system(.subheadline, design: .rounded))
-                        .foregroundColor(.secondary)
+                    Text(String(repeating: "$", count: restaurant.priceLevel))
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    
                 }
                 
-                Spacer()
-                    .layoutPriority(-100)
+                Text(restaurant.type)
+                    .font(.system(.subheadline, design: .rounded))
+                    .bold()
+                    .foregroundColor(.secondary)
+                    .lineLimit(3)
                 
-                if restaurant.isCheckIn {
-                    Image(systemName: "checkmark.seal.fill")
-                        .foregroundColor(.red)
-                }
-                
-                if restaurant.isFavorite {
-                    //Spacer()
-                    Image(systemName: "star.fill")
-                    .foregroundColor(.yellow)
-                }
+                Text(restaurant.phone)
+                    .font(.system(.subheadline, design: .rounded))
+                    .foregroundColor(.secondary)
             }
+            
+            Spacer()
+                .layoutPriority(-100)
+            
+            if restaurant.isCheckIn {
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundColor(.red)
+            }
+            
+            if restaurant.isFavorite {
+                //Spacer()
+                Image(systemName: "star.fill")
+                    .foregroundColor(.yellow)
+            }
+        }
     }
 }
-
