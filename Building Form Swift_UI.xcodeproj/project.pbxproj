@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA68B015298E565100221E62 /* Setting Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68B014298E565100221E62 /* Setting Store.swift */; };
 		FAC586AD298A93C400F24256 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC586AC298A93C400F24256 /* AppDelegate.swift */; };
 		FAC586AF298A93C400F24256 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC586AE298A93C400F24256 /* SceneDelegate.swift */; };
 		FAC586B1298A93C400F24256 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC586B0298A93C400F24256 /* ContentView.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA68B014298E565100221E62 /* Setting Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting Store.swift"; sourceTree = "<group>"; };
 		FAC586A9298A93C400F24256 /* Building Form Swift_UI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Building Form Swift_UI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC586AC298A93C400F24256 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAC586AE298A93C400F24256 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				FAC586BD298A93CF00F24256 /* Info.plist */,
 				FAC586B2298A93C400F24256 /* Building_Form_Swift_UI.xcdatamodeld */,
 				FAC586B7298A93CF00F24256 /* Preview Content */,
+				FA68B014298E565100221E62 /* Setting Store.swift */,
 			);
 			path = "Building Form Swift_UI";
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA68B015298E565100221E62 /* Setting Store.swift in Sources */,
 				FAC586AD298A93C400F24256 /* AppDelegate.swift in Sources */,
 				FAC586C7298AA94C00F24256 /* SettingView.swift in Sources */,
 				FAC586B4298A93C400F24256 /* Building_Form_Swift_UI.xcdatamodeld in Sources */,
