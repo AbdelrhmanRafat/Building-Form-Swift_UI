@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Combine
 enum DisplayOrderType : Int,CaseIterable {
     case alphabetical = 0
     case favouriteList = 1
@@ -35,8 +35,10 @@ enum DisplayOrderType : Int,CaseIterable {
     }
 }
 
-final class SettingStore {
-    var defaults : UserDefaults
+//Observable Object this is a protocol of combine framework when you declare a property as an enviroment object the type of that property must implement this protocol
+
+final class SettingStore : ObservableObject {
+   @Published var defaults : UserDefaults // @Published is a property wrapper that works along with ObservableObject, when a property is prefixed with @Published this inform that the publisher should inform all subscribers whenever the property's value is changed.
     init(defaults : UserDefaults = .standard) {
         self.defaults = defaults
         defaults.register(defaults: ["view.preferences.showCheckInOnly" : false,

@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var SelectedOrder = DisplayOrderType.alphabetical
-    var settingStore : SettingStore
+    @EnvironmentObject var settingStore : SettingStore // Share Data with other views.
     @State private var showCheckInOnly = false
     @State private var maxPriceLevel = 5
     var body: some View {
@@ -93,6 +93,6 @@ struct SettingView: View {
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView(settingStore: SettingStore())
+        SettingView().environmentObject(SettingStore())
     }
 }

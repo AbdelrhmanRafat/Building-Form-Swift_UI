@@ -5,7 +5,6 @@
 //  Created by Macbook on 01/02/2023.
 //
 import SwiftUI
-
 struct ContentView: View {
     
     @State var restaurants = [
@@ -35,9 +34,10 @@ struct ContentView: View {
     
     @State private var selectedRestaurant: Restaurant?
     @State private var showSettings = false
-    var settingStore : SettingStore
+    @EnvironmentObject var settingStore : SettingStore
     var body: some View {
         NavigationView {
+            //List View is the subscriber side.
             List {
                 ForEach(restaurants) { restaurant in
                     BasicImageRow(restaurant: restaurant)
@@ -94,7 +94,7 @@ struct ContentView: View {
                                     })
             )
             .sheet(isPresented: $showSettings){
-                SettingView(settingStore : self.settingStore)
+                SettingView().environmentObject(self.settingStore)
             }
         }
     }
@@ -120,7 +120,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(settingStore: SettingStore())
+        ContentView().environmentObject(SettingStore())
     }
 }
 
