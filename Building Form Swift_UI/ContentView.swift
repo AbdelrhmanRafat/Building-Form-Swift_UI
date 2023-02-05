@@ -30,7 +30,10 @@ struct ContentView: View {
         Restaurant(name: "Royal Oak", type: "British", phone: "343-988834", image: "royaloak", priceLevel: 2, isFavorite: true),
         Restaurant(name: "CASK Pub and Kitchen", type: "Thai", phone: "432-344050", image: "caskpubkitchen", priceLevel: 1)
     ]
-    
+    private func shouldShowItem(restaurant : Restaurant) -> Bool {
+        
+        return (!self.settingStore.showCheckInOnly || restaurant.isCheckIn) && (restaurant.priceLevel <= self.settingStore.maxPriceLevel)
+    }
     
     @State private var selectedRestaurant: Restaurant?
     @State private var showSettings = false
@@ -40,43 +43,45 @@ struct ContentView: View {
             //List View is the subscriber side.
             List {
                 ForEach(restaurants) { restaurant in
-                    BasicImageRow(restaurant: restaurant)
-                        .contextMenu {
-                            
-                            Button(action: {
-                                // mark the selected restaurant as check-in
-                                self.checkIn(item: restaurant)
-                            }) {
-                                HStack {
-                                    Text("Check-in")
-                                    Image(systemName: "checkmark.seal.fill")
-                                }
-                            }
-                            
-                            Button(action: {
-                                // delete the selected restaurant
-                                self.delete(item: restaurant)
-                            }) {
-                                HStack {
-                                    Text("Delete")
-                                    Image(systemName: "trash")
-                                }
-                            }
-                            
-                            Button(action: {
-                                // mark the selected restaurant as favorite
-                                self.setFavorite(item: restaurant)
+                    if self.shouldShowItem(restaurant: restaurant){
+                        BasicImageRow(restaurant: restaurant)
+                            .contextMenu {
                                 
-                            }) {
-                                HStack {
-                                    Text("Favorite")
-                                    Image(systemName: "star")
+                                Button(action: {
+                                    // mark the selected restaurant as check-in
+                                    self.checkIn(item: restaurant)
+                                }) {
+                                    HStack {
+                                        Text("Check-in")
+                                        Image(systemName: "checkmark.seal.fill")
+                                    }
+                                }
+                                
+                                Button(action: {
+                                    // delete the selected restaurant
+                                    self.delete(item: restaurant)
+                                }) {
+                                    HStack {
+                                        Text("Delete")
+                                        Image(systemName: "trash")
+                                    }
+                                }
+                                
+                                Button(action: {
+                                    // mark the selected restaurant as favorite
+                                    self.setFavorite(item: restaurant)
+                                    
+                                }) {
+                                    HStack {
+                                        Text("Favorite")
+                                        Image(systemName: "star")
+                                    }
                                 }
                             }
-                        }
-                        .onTapGesture {
-                            self.selectedRestaurant = restaurant
-                        }
+                            .onTapGesture {
+                                self.selectedRestaurant = restaurant
+                            }
+                    }
                 }
                 .onDelete { (indexSet) in
                     self.restaurants.remove(atOffsets: indexSet)
