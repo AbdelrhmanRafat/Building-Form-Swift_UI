@@ -42,7 +42,7 @@ struct ContentView: View {
         NavigationView {
             //List View is the subscriber side.
             List {
-                ForEach(restaurants) { restaurant in
+                ForEach(restaurants.sorted(by: self.settingStore.displayOrder.predicate())) { restaurant in
                     if self.shouldShowItem(restaurant: restaurant){
                         BasicImageRow(restaurant: restaurant)
                             .contextMenu {

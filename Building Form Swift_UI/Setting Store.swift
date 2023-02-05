@@ -33,6 +33,16 @@ enum DisplayOrderType : Int,CaseIterable {
             return "Show Check-in First"
         }
     }
+    func predicate() -> ((Restaurant,Restaurant) -> Bool) {
+        switch self {
+        case .alphabetical:
+            return { $0.name < $1.name }
+        case .favouriteList:
+            return { $0.isFavorite && !$1.isFavorite }
+        case .checkInFirst:
+            return { $0.isCheckIn && !$1.isCheckIn }
+        }
+    }
 }
 
 //Observable Object this is a protocol of combine framework when you declare a property as an enviroment object the type of that property must implement this protocol
